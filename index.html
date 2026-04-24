@@ -1,0 +1,1866 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Kỷ Niệm 1 Năm Cùng Em 💖</title>
+
+<style>
+:root{
+  --bg1:#ff7eb3;
+  --bg2:#ffacc5;
+  --bg3:#ffffff;
+  --ink:#8a3d5e;
+  --ink-strong:#5a1a33;
+  --card:#ffffff;
+  --card-soft:#fff0f5;
+  --accent:#ff4d94;
+  --accent-2:#ff85b3;
+  --shadow:0 15px 35px rgba(255, 77, 148, 0.15);
+  --glow:0 0 15px rgba(255, 121, 180, 0.4);
+}
+
+*{box-sizing:border-box}
+html,body{
+  margin:0;
+  height:100%;
+  font-family:"Segoe UI",system-ui,-apple-system,sans-serif;
+  overflow-x:hidden;
+}
+body{
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 12% 8%, rgba(255,255,255,.25), transparent 22%),
+    radial-gradient(circle at 88% 15%, rgba(255,255,255,.18), transparent 20%),
+    radial-gradient(circle at 35% 88%, rgba(255,255,255,.12), transparent 25%),
+    linear-gradient(135deg, var(--bg1), var(--bg2) 55%, var(--bg3));
+  position:relative;
+}
+
+body.sad-mode{
+  background:
+    radial-gradient(circle at 12% 8%, rgba(255,255,255,.08), transparent 22%),
+    radial-gradient(circle at 88% 15%, rgba(255,255,255,.06), transparent 20%),
+    radial-gradient(circle at 35% 88%, rgba(255,255,255,.06), transparent 25%),
+    linear-gradient(135deg, #5a4850, #7e6770 56%, #d9ccd1);
+}
+
+body::before,
+body::after{
+  content:"";
+  position:fixed;
+  inset:-25%;
+  pointer-events:none;
+  z-index:0;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,.35) 0 1.4px, transparent 1.6px),
+    radial-gradient(circle, rgba(255, 143, 189, .18) 0 1.1px, transparent 1.5px);
+  background-size:110px 110px, 200px 200px;
+  animation:drift 32s linear infinite;
+  opacity:.42;
+}
+body::after{
+  animation-duration:48s;
+  opacity:.26;
+  transform:translate3d(30px,15px,0);
+}
+@keyframes drift{
+  from{transform:translateY(0)}
+  to{transform:translateY(55px)}
+}
+
+body.sad-mode .hero{background:linear-gradient(180deg, rgba(86,70,77,.96), rgba(125,105,113,.94));}
+body.sad-mode .card,
+body.sad-mode .gallery-question-layer,
+body.sad-mode .qa-area,
+body.sad-mode .final-love{
+  background:linear-gradient(180deg, #fff7f8, #f2ebee);
+  border-color:rgba(113,95,103,.18);
+}
+body.sad-mode .question-sub,
+body.sad-mode #emotionLine,
+body.sad-mode .gallery-question-layer .hint,
+body.sad-mode .gallery-question-layer h3,
+body.sad-mode .card h2,
+body.sad-mode .card h3,
+body.sad-mode .section-title{color:#6c5760;}
+
+body.sad-mode .yes-btn{
+  background:linear-gradient(135deg,#ff4f93,#ff8ab8);
+  color:#fff;
+  box-shadow:0 18px 36px rgba(255,79,147,.32);
+}
+
+body.sad-mode .no-btn{
+  background:linear-gradient(135deg,#b3a0a8,#8e7a82);
+  color:#fff;
+  box-shadow:0 14px 28px rgba(0,0,0,.12);
+  border:1px solid rgba(255,255,255,.12);
+}
+body.sad-mode .screen-flash.show{
+  background:radial-gradient(circle, rgba(255,255,255,.92), rgba(214,214,214,.25) 40%, transparent 75%);
+}
+
+.sparkle{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:1;
+  overflow:hidden;
+}
+.sparkle i{
+  position:absolute;
+  display:block;
+  width:5px;
+  height:5px;
+  border-radius:50%;
+  background:#fff;
+  box-shadow:0 0 12px #ff8ab8, 0 0 18px #fff;
+  animation:sparkleUp 11s linear infinite;
+  opacity:.55;
+}
+@keyframes sparkleUp{
+  from{transform:translateY(110vh) scale(.4) rotate(0deg)}
+  to{transform:translateY(-25vh) scale(1.25) rotate(360deg)}
+}
+
+.floating-heart,
+.floating-sad{
+  position:fixed;
+  bottom:-30px;
+  pointer-events:none;
+  z-index:10000;
+  animation:floatUp linear forwards;
+}
+.floating-heart{filter:drop-shadow(0 8px 14px rgba(255,79,147,.3))}
+.floating-sad{filter:drop-shadow(0 8px 14px rgba(90,90,90,.22))}
+@keyframes floatUp{
+  from{transform:translateY(0) translateX(0) scale(.6);opacity:0}
+  12%{opacity:1}
+  to{transform:translateY(-118vh) translateX(var(--dx)) scale(1.45);opacity:0}
+}
+
+.bg-portraits{
+  position:fixed;
+  inset:0;
+  display:none;
+  pointer-events:none;
+  z-index:2;
+  overflow:hidden;
+}
+.bg-portraits.show{display:block}
+
+.portrait{
+  position:absolute;
+  width:118px;
+  height:118px;
+  border-radius:32px;
+  border:3px solid rgba(255,255,255,.8);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+  opacity:.95;
+  background:#000;
+  transform:rotate(var(--rot));
+  animation:bob 7s ease-in-out infinite alternate;
+  pointer-events:auto;
+  cursor:pointer;
+  transition:transform .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.portrait:hover{
+  transform:rotate(var(--rot)) scale(1.15)!important;
+  z-index:10;
+}
+.portrait img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center;
+  display:block;
+  filter:brightness(1.05) saturate(1.1);
+  transform:scale(1.1);
+  transition:transform 0.4s ease;
+}
+.portrait:hover img{transform:scale(1)}
+.portrait::after{
+  content:"💗";
+  position:absolute;
+  right:10px;
+  top:8px;
+  font-size:19px;
+  filter:drop-shadow(0 4px 8px rgba(0,0,0,.2));
+}
+.portrait:nth-child(2n){animation-duration:8.8s}
+.portrait:nth-child(3n){animation-duration:6.5s}
+@keyframes bob{
+  0% { transform: translateY(0) rotate(var(--rot)) scale(1); }
+  50% { transform: translateY(-15px) rotate(var(--rot)) scale(1.02); }
+  100% { transform: translateY(0) rotate(var(--rot)) scale(1); }
+}
+
+.container{
+  position:relative;
+  z-index:3;
+  max-width:960px;
+  margin:0 auto;
+  padding:22px 18px 60px;
+  text-align:center;
+}
+
+.card{
+  padding:24px 22px;
+  border-radius:40px;
+  background:rgba(255,255,255,.7);
+  color:var(--ink);
+  border:1px solid rgba(255,255,255,.4);
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(20px);
+}
+.card h2,.card h3{
+  margin:0 0 16px;
+  color:var(--ink-strong);
+  font-weight:700;
+  letter-spacing:-.02em;
+}
+
+.hero{
+  margin:12px auto 22px;
+  padding:32px 24px 26px;
+  border-radius:36px;
+  border:1px solid rgba(255,255,255,.3);
+  background:var(--card);
+  box-shadow:var(--shadow);
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at 50% 20%, rgba(255,255,255,.3), transparent 60%);
+  pointer-events:none;
+}
+.hero h1{
+  margin:12px 0 10px;
+  font-size:clamp(2.2rem, 7vw, 3.8rem);
+  line-height:1.05;
+  letter-spacing:-.06em;
+  color:var(--ink-strong);
+  text-shadow:none;
+}
+.hero p{
+  margin:10px auto 0;
+  max-width:780px;
+  line-height:1.85;
+  color:var(--ink);
+  font-size:1.05rem;
+}
+
+.badge{
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  padding:11px 20px;
+  border-radius:9999px;
+  background:rgba(255,255,255,.6);
+  border:1px solid rgba(255,79,147,.2);
+  box-shadow:0 4px 15px rgba(0,0,0,.05);
+  font-weight:800;
+  color:var(--ink);
+  backdrop-filter:blur(10px);
+}
+
+button{
+  border:none;
+  cursor:pointer;
+  padding:14px 24px;
+  border-radius:9999px;
+  background:linear-gradient(135deg, #ff4d94, #ff7eb3);
+  color:#fff;
+  font-weight:800;
+  letter-spacing:.02em;
+  box-shadow:0 18px 36px rgba(255,79,147,.32);
+  transition:transform .2s cubic-bezier(0.68, -0.55, 0.27, 1.55),
+             box-shadow .2s ease, filter .2s ease, left .35s ease, top .35s ease, transform .35s ease;
+  touch-action:manipulation;
+}
+button:hover{
+  transform:translateY(-3px) scale(1.04);
+  box-shadow:var(--glow);
+  filter:brightness(1.1);
+}
+button:active{transform:scale(0.96)}
+button:disabled{
+  opacity:.62;
+  cursor:not-allowed;
+  transform:none !important;
+  box-shadow:0 10px 20px rgba(0,0,0,.08);
+}
+.small-btn{padding:13px 24px;font-weight:800}
+
+.overlay{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:radial-gradient(circle at 30% 20%, rgba(255,255,255,.18), transparent 30%),
+             linear-gradient(135deg, rgba(209,58,124,.96), rgba(248,161,196,.97));
+}
+.overlay-panel{
+  width:min(94vw, 560px);
+  padding:40px 28px 32px;
+  border-radius:36px;
+  background:rgba(255,255,255,.18);
+  border:1px solid rgba(255,255,255,.35);
+  box-shadow:0 28px 80px rgba(0,0,0,.22);
+  backdrop-filter:blur(16px);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  gap:18px;
+}
+.overlay-panel h2{margin:0;font-size:1.85rem;color:#fff}
+.overlay-panel p{margin:0;line-height:1.8;color:rgba(255,255,255,.96)}
+
+.row{
+  display:flex;
+  gap:12px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-top:18px;
+}
+.step{
+  display:none;
+  opacity:0;
+  transform:translateY(20px);
+  transition:opacity .5s cubic-bezier(0.34, 1.56, 0.64, 1), transform .5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.step.show{
+  display:block;
+  opacity:1;
+  transform:translateY(0);
+}
+
+.type{
+  min-height:168px;
+  font-size:1.1rem;
+  line-height:1.95;
+  text-align:center;
+  white-space:pre-line;
+  color:var(--ink-strong);
+  padding:12px 0;
+}
+
+.count{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin-top:18px;
+}
+.count .box{
+  margin:0;
+  padding:18px 12px;
+  border-radius:26px;
+  background:linear-gradient(180deg,#fff,#fff8f9);
+  border:1px solid rgba(255,79,147,.14);
+  box-shadow:0 12px 28px rgba(209,58,124,.12);
+  opacity:0;
+  transition:all .4s;
+}
+.count .box.show{opacity:1;transform:scale(1)}
+.num{
+  display:block;
+  font-size:1.85rem;
+  font-weight:900;
+  line-height:1;
+  color:var(--ink-strong);
+}
+.lbl{
+  display:block;
+  margin-top:8px;
+  font-size:.85rem;
+  color:#a05a7c;
+  letter-spacing:.5px;
+}
+.answer-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+  margin:20px 0;
+}
+.answer-btn{
+  padding:16px 12px;
+  border-radius:22px;
+  background:#fff;
+  border:2px solid #ff8ab8;
+  color:#5c1f42;
+  font-weight:700;
+  font-size:1.05rem;
+  transition:all .3s;
+}
+.answer-btn.correct{background:#e0ffe0;border-color:#4ade80;color:#166534}
+.answer-btn.wrong{background:#ffe0e0;border-color:#f87171;color:#991b1b}
+
+.gallery-container{
+  position:relative;
+  min-height:450px;
+  margin:24px 0 18px;
+  padding:18px;
+  border-radius:28px;
+  background:rgba(255,255,255,.15);
+  box-shadow:var(--shadow);
+  overflow:hidden;
+}
+.gallery-question-note{
+  position:absolute;
+  left:50%;
+  top:12px;
+  transform:translateX(-50%);
+  z-index:9;
+  padding:10px 14px;
+  border-radius:9999px;
+  background:rgba(255,255,255,.92);
+  border:1px solid rgba(255,79,147,.14);
+  color:#5c1f42;
+  font-weight:800;
+  font-size:.95rem;
+  box-shadow:0 10px 22px rgba(0,0,0,.08);
+  pointer-events:none;
+  display:block;
+  max-width:92%;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.gallery-question-layer{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  width:min(74%, 500px);
+  padding:18px 16px 14px;
+  border-radius:22px;
+  background:rgba(255,255,255,.82);
+  border:1px solid rgba(255,79,147,.12);
+  box-shadow:0 16px 36px rgba(209,58,124,.14);
+  z-index:2;
+  text-align:center;
+  opacity:1;
+  filter:none;
+  transition:opacity .35s ease, filter .35s ease, transform .35s ease;
+  pointer-events:none;
+}
+.gallery-question-layer h3{
+  margin:0 0 10px;
+  color:var(--ink-strong);
+  font-size:1.15rem;
+}
+.gallery-question-layer .hint{
+  color:#7b3759;
+  line-height:1.7;
+  margin:0;
+}
+.gallery-question-actions{
+  display:none;
+  margin-top:14px;
+  gap:12px;
+  justify-content:center;
+  flex-wrap:wrap;
+  pointer-events:auto;
+}
+.gallery-question-actions button{
+  padding:13px 22px;
+  border-radius:9999px;
+  font-size:1rem;
+}
+.gallery-thumb-layer{
+  position:absolute;
+  inset:0;
+  z-index:6;
+}
+.gallery-floating{
+  position:absolute;
+  width:180px;
+  height:180px;
+  border-radius:20px;
+  overflow:hidden;
+  border:6px solid rgba(255,255,255,.85);
+  box-shadow:0 15px 35px rgba(209,58,124,.3);
+  cursor:pointer;
+  transition:
+    transform .42s cubic-bezier(0.68, -0.55, 0.27, 1.55),
+    box-shadow .3s,
+    left .55s ease,
+    top .55s ease,
+    right .55s ease,
+    opacity .35s ease,
+    filter .35s ease,
+    width .35s ease,
+    height .35s ease;
+  z-index:15;
+  background:#fff;
+}
+.gallery-floating img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  filter:saturate(1.08) contrast(1.05);
+}
+.gallery-floating:hover{
+  transform:scale(1.08) rotate(8deg);
+  box-shadow:0 25px 50px rgba(255,79,147,.45);
+  z-index:10;
+}
+.gallery-floating.viewed{
+  opacity:.98;
+  filter:brightness(.98) saturate(1.02);
+}
+
+.gallery-modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.82);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:11000;
+  backdrop-filter:blur(12px);
+}
+.gallery-modal.show{display:flex}
+.gallery-modal-content{
+  position:relative;
+  max-width:90vw;
+  max-height:90vh;
+  border-radius:32px;
+  overflow:hidden;
+  box-shadow:0 30px 80px rgba(0,0,0,.5);
+  background:transparent;
+  animation:modalPop .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+.gallery-modal-content img{
+  width:auto;
+  height:auto;
+  max-width:100%;
+  max-height:70vh;
+  display:block;
+  object-fit:contain;
+  border-radius:20px 20px 0 0;
+}
+.gallery-modal-caption{
+  width:100%;
+  padding:18px 24px;
+  font-size:1.1rem;
+  color:#5c1f42;
+  text-align:center;
+  background:#fff;
+  border-top:1px solid #ffe4f0;
+  font-weight:600;
+  box-sizing:border-box;
+}
+@keyframes modalPop{
+  0%{transform:scale(0.7);opacity:0}
+  100%{transform:scale(1);opacity:1}
+}
+
+.gallery-feedback{
+  min-height:56px;
+  margin-top:14px;
+  font-weight:700;
+  text-align:center;
+  line-height:1.6;
+}
+
+.question-panel{
+  position:relative;
+  z-index:30;
+  overflow:visible;
+}
+.question-sub{
+  color:#7b3759;
+  margin:0 0 16px;
+  line-height:1.8;
+  font-weight:500;
+}
+.qa-area{
+  position:relative;
+  min-height:245px;
+  border-radius:30px;
+  background:linear-gradient(180deg,#fff,#fff8f9);
+  border:2px dashed rgba(255,79,147,.25);
+  overflow:visible;
+  box-shadow:inset 0 8px 20px rgba(209,58,124,.08);
+}
+.choice-container{
+  position:relative;
+  min-height:180px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:visible;
+}
+.choice-btn{
+  padding:16px 30px;
+  font-size:1.05rem;
+  white-space:nowrap;
+  line-height:1.3;
+  box-sizing:border-box;
+  position:absolute;
+  z-index:9998;
+  transform:translate(-50%, -50%);
+  transform-origin:center;
+  transition:
+    left .35s ease,
+    top .35s ease,
+    transform .35s ease,
+    box-shadow .3s ease,
+    opacity .3s ease;
+}
+
+.yes-btn{
+  z-index:9998;
+  background:linear-gradient(135deg,#ff4f93,#ff8ab8);
+  color:#fff;
+  box-shadow:0 18px 36px rgba(255,79,147,.32);
+}
+.no-btn{
+  z-index:9999;
+  background:linear-gradient(135deg,#f8d4e0,#e8a9c2);
+  color:#5a223a;
+  box-shadow:0 14px 32px rgba(128,48,78,.15);
+  border:1px solid rgba(128,48,78,.1);
+}
+
+.final-love{
+  display:none;
+  margin-top:40px;
+  padding:24px;
+  border-radius:30px;
+  background:linear-gradient(180deg,#fff,#fff8f9);
+  border:1px solid rgba(255,79,147,.14);
+  line-height:1.85;
+  color:var(--ink);
+  box-shadow:var(--shadow);
+}
+.final-love.show{
+  display:block;
+  animation:pop .6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+}
+
+.full-layout{
+  display:none;
+  padding:30px 18px 80px;
+  max-width:1000px;
+  margin:0 auto;
+  position:relative;
+  z-index:4;
+}
+.full-layout.show{display:block}
+.full-layout .hero{
+  margin-bottom:32px;
+  box-shadow:0 24px 60px rgba(209,58,124,.28);
+}
+.full-layout .story-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:32px;
+  margin-top:0;
+}
+.full-layout .two-col{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:24px;
+}
+.full-layout .card{
+  margin:0;
+  height:100%;
+}
+.full-layout .section-title{
+  font-size:1.65rem;
+  color:var(--ink-strong);
+  text-align:center;
+  margin:0 0 18px;
+  position:relative;
+}
+.full-layout .section-title::after{
+  content:"💗";
+  position:absolute;
+  right:-22px;
+  top:-4px;
+  font-size:1.4rem;
+}
+
+/* Khối ảnh đôi ở phần tổng kết */
+.couple-art{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:25px;
+  margin-top:40px;
+  padding-bottom:8px;
+  flex-wrap:wrap;
+}
+
+.avatar-circle{
+  position:relative;
+  width:120px;
+  height:120px;
+  border-radius:50%;
+  overflow:hidden;
+  border:4px solid rgba(255,255,255,.92);
+  box-shadow:0 15px 30px rgba(255,79,147,.18);
+  background:#fff;
+  flex:0 0 auto;
+}
+.avatar-circle img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.name-tag{
+  position:absolute;
+  left:50%;
+  bottom:8px;
+  transform:translateX(-50%);
+  padding:5px 10px;
+  border-radius:9999px;
+  background:rgba(255,255,255,.92);
+  color:#d13a7c;
+  font-size:.78rem;
+  font-weight:800;
+  white-space:nowrap;
+  box-shadow:0 6px 14px rgba(0,0,0,.08);
+}
+.love-center{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:60px;
+  height:60px;
+  flex:0 0 auto;
+}
+.pulse-heart{
+  font-size:2rem;
+  animation:pulseHeart 1.2s ease-in-out infinite;
+  filter:drop-shadow(0 8px 16px rgba(255,79,147,.28));
+}
+@keyframes pulseHeart{
+  0%,100%{transform:scale(1)}
+  50%{transform:scale(1.18)}
+}
+
+.photo-card{
+  background:rgba(255,255,255,.92);
+  border:1px solid rgba(255,79,147,.12);
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 10px 24px rgba(0,0,0,.08);
+  transition:transform .25s ease, box-shadow .25s ease;
+  cursor:pointer;
+}
+.photo-card:hover{
+  transform:translateY(-4px) scale(1.01);
+  box-shadow:0 18px 34px rgba(255,79,147,.16);
+}
+.photo-card img{
+  width:100%;
+  aspect-ratio:1/1;
+  object-fit:cover;
+  display:block;
+}
+.photo-card .cap{
+  padding:12px 12px 14px;
+  text-align:left;
+  color:#5c1f42;
+  line-height:1.55;
+  font-size:.98rem;
+}
+.badge-mini{
+  display:inline-block;
+  margin-bottom:8px;
+  padding:6px 10px;
+  border-radius:9999px;
+  background:#fff0f5;
+  color:#d13a7c;
+  font-size:.78rem;
+  font-weight:800;
+}
+
+.kudos.sad-note{
+  color:#991b1b;
+  background:rgba(255,255,255,.98);
+}
+
+.kudos{
+  position:fixed;
+  z-index:9999;
+  padding:12px 18px;
+  border-radius:9999px;
+  background:rgba(255,255,255,.96);
+  color:#d13a7c;
+  font-weight:900;
+  box-shadow:0 14px 32px rgba(0,0,0,.18);
+  transform:translate(-50%, -50%) scale(.9);
+  animation:kudosPop 5s ease forwards;
+  pointer-events:none;
+  max-width:72vw;
+}
+@keyframes kudosPop{
+  0%{opacity:0;transform:translate(-50%, -50%) scale(.75)}
+  10%{opacity:1}
+  92%{opacity:1}
+  100%{opacity:0;transform:translate(-50%, -92%) scale(1.08)}
+}
+.screen-flash{
+  position:fixed;
+  inset:0;
+  z-index:9997;
+  pointer-events:none;
+  background:radial-gradient(circle, rgba(255,255,255,.95), rgba(255,240,247,.3) 40%, transparent 75%);
+  opacity:0;
+}
+.screen-flash.show{animation:flash 1.1s ease}
+@keyframes flash{
+  0%{opacity:0}
+  8%{opacity:1}
+  100%{opacity:0}
+}
+
+.footer-note{
+  margin-top:28px;
+  color:#7b3759;
+  font-weight:700;
+  font-size:1.02rem;
+  letter-spacing:.3px;
+  text-align:center;
+}
+
+@media (max-width:900px){
+  .full-layout .two-col{grid-template-columns:1fr;gap:20px}
+  .full-layout{padding:24px 14px 70px}
+  .gallery-question-layer{width:min(90%, 650px)}
+  .gallery-container{min-height:350px}
+}
+@media (max-width:640px){
+  .full-layout .story-grid{gap:26px}
+  .overlay-panel{padding:32px 20px 26px}
+  .choice-container{gap:16px}
+  .type{font-size:1.02rem;line-height:1.85}
+  .gallery-container{min-height:330px}
+  .gallery-floating{width:70px;height:70px}
+  .gallery-question-layer{width:92%;padding:16px 12px}
+  .gallery-question-layer h3{font-size:1.05rem}
+  .gallery-question-note{font-size:.84rem;max-width:94%}
+  .hero h1{font-size:1.8rem}
+  .couple-art{
+    gap:14px;
+    margin-top:18px;
+  }
+  .avatar-circle{
+    width:92px;
+    height:92px;
+  }
+  .love-center{
+    width:44px;
+    height:44px;
+  }
+  .pulse-heart{
+    font-size:1.5rem;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="sparkle" id="sparkle"></div>
+<div class="bg-portraits" id="bgPortraits"></div>
+<div class="screen-flash" id="flash"></div>
+
+<div class="overlay" id="startScreen">
+  <div class="overlay-panel">
+    <div class="badge">💌 Món quà chỉ dành riêng cho bà chã iu</div>
+    <h2>Hãy mở thật nhẹ nhàng nhé…</h2>
+    <p>Trang này được ông chã làm với cả trái tim. Mỗi bước là một lớp yêu thương. Chạm vào nút bên dưới để bắt đầu hành trình của chúng ta ❤️</p>
+    <button onclick="start()">Dạ ông chã iu 🌷</button>
+  </div>
+</div>
+
+<audio id="music" loop preload="auto">
+  <source src="music/Gap_doi_yeu_thuong.mp3" type="audio/mpeg">
+</audio>
+
+<div class="container">
+  <section class="hero step" id="introStep">
+    <div class="badge">💗 Kỷ niệm 1 năm yêu xa</div>
+    <h1>Gửi bà chã iu 💖</h1>
+    <p>Một trang web nhỏ được ông chã thiết kế chỉ dành cho bà chã iu. Mở từng lớp một như ông chã đang ôm bà chã iu thật chậm và thật dịu dàng.</p>
+    <div class="row"><button class="small-btn" onclick="goTime()">Dạ ông chã iu 🌸</button></div>
+  </section>
+
+  <section class="card step" id="timeStep" style="margin-top:18px">
+    <h2>⏳ ĐẾM NGÀY YÊU THƯƠNG</h2>
+    <p style="margin:16px 0 20px;color:#7b3759">Bà chã iu có nhớ thời gian chúng ta bên nhau là bao lâu rồi không?</p>
+    <div class="answer-grid" id="timeAnswers">
+      <button class="answer-btn" onclick="checkTimeAnswer(0)">295 ngày</button>
+      <button class="answer-btn" onclick="checkTimeAnswer(1)">365 ngày</button>
+      <button class="answer-btn" onclick="checkTimeAnswer(2)">369 ngày</button>
+      <button class="answer-btn" onclick="checkTimeAnswer(3)">265 ngày</button>
+    </div>
+    <div id="timeFeedback" style="min-height:90px;margin:12px 0;font-weight:700;line-height:1.5"></div>
+    <div class="row" id="timeContinueRow" style="display:none">
+      <button class="small-btn" id="timeContinueBtn" onclick="beginTimeProceed()">Dạ ông chã iu 💞</button>
+    </div>
+    <div class="count" id="timeCount" style="display:none">
+      <div class="box" id="box1"><span class="num" id="days">00</span><span class="lbl">Ngày</span></div>
+      <div class="box" id="box2"><span class="num" id="hours">00</span><span class="lbl">Giờ</span></div>
+      <div class="box" id="box3"><span class="num" id="mins">00</span><span class="lbl">Phút</span></div>
+      <div class="box" id="box4"><span class="num" id="secs">00</span><span class="lbl">Giây</span></div>
+    </div>
+  </section>
+
+  <section class="card step" id="messageStep" style="margin-top:18px">
+    <h2>💬 Có đôi lời ông chã mún nói</h2>
+    <div class="type" id="text" style="text-align:center"></div>
+    <div class="row">
+      <button class="small-btn" id="messageBtn" onclick="nextMessageLine()">Dạ ông chã iu 💖</button>
+    </div>
+  </section>
+
+  <section class="card step" id="galleryStep" style="margin-top:18px">
+    <h2>📸 Những tấm hình đáng iu của bà chã</h2>
+    <div class="gallery-container" id="galleryContainer">
+      <div class="gallery-question-note" id="galleryQuestionNote">Hình như có gì đó phía sau, hãy cùng khám phá nhé bà chã iu 💗</div>
+      <div class="gallery-question-layer" id="galleryQuestionLayer">
+        <h3 id="galleryQuestionTitle">Cô bé đáng iu này là của ai dạ? =))</h3>
+        <p class="hint" id="galleryQuestionHint">Chạm vào từng ô ảnh để hé lộ điều đang ẩn bên dưới.</p>
+        <div class="gallery-question-actions" id="galleryAnswerWrap">
+          <button id="galleryWrongBtn" onclick="answerGalleryQuestion(0)" style="background:#fff;border:2px solid #ff8ab8;color:#5c1f42;font-weight:700">Của ai cũng được 😭</button>
+          <button id="galleryRightBtn" onclick="answerGalleryQuestion(1)" style="background:#e0ffe0;border:2px solid #4ade80;color:#166534;font-weight:700">Của ông chã iu 💞</button>
+        </div>
+        <div id="galleryFeedback" class="gallery-feedback"></div>
+      </div>
+      <div class="gallery-thumb-layer" id="galleryThumbLayer"></div>
+    </div>
+  </section>
+
+  <section class="card question-panel step" id="questionStep" style="margin-top:18px">
+    <h2>💖 Một câu hỏi thật nhẹ nhàng</h2>
+    <p class="question-sub" id="questionText">Bà chã còn mún đồng hành với ông chã nhạt nhẽo này nữa khum 💗</p>
+    <div class="qa-area" id="qaArea">
+      <div class="choice-container" id="choiceContainer">
+        <button class="choice-btn yes-btn" id="yesBtn" onclick="sayYes()">Dạ có ạaa</button>
+        <button class="choice-btn no-btn" id="noBtn" onclick="moveNo()">Hông thèm😭</button>
+      </div>
+    </div>
+    <div id="emotionLine" style="margin-top:30px;font-size:1.1rem;color:#7b3759;min-height:80px;font-weight:600"></div>
+    <div class="row" id="finalConfirmRow" style="display:none">
+      <button class="small-btn" id="finalConfirmBtn" onclick="confirmLove()">Dạ iu ông chã nhìu 💞</button>
+    </div>
+  </section>
+
+  <div class="full-layout" id="fullLayout"> 
+    <div class="hero">
+      <div class="badge">💗 Toàn bộ hành trình yêu thương của chúng ta</div>
+      <h1>Kỷ niệm 1 năm cùng bà chã iu 💖</h1>
+      <p style="color:rgba(255, 0, 0, 0.959);margin-top:10px">Cảm ơn bà chã iu đã cùng ông chã đi qua một năm thật đẹp</p>
+    </div>
+
+    <div class="story-grid">
+      <div class="two-col">
+        <div class="card">
+          <h2 class="section-title">⏳ Chúng ta đã bên nhau</h2>
+          <div class="count">
+            <div class="box"><span class="num" id="days2">00</span><span class="lbl">Ngày</span></div>
+            <div class="box"><span class="num" id="hours2">00</span><span class="lbl">Giờ</span></div>
+            <div class="box"><span class="num" id="mins2">00</span><span class="lbl">Phút</span></div>
+            <div class="box"><span class="num" id="secs2">00</span><span class="lbl">Giây</span></div>
+          </div>
+
+          <div class="couple-art">
+            <div class="avatar-circle">
+              <img src="images/anh_ong_cha.jpg" alt="Ông chã">
+              <div class="name-tag">Ông chã</div>
+            </div>
+
+            <div class="love-center">
+              <div class="pulse-heart">❤️</div>
+            </div>
+
+            <div class="avatar-circle">
+              <img src="images/anh_ba_cha.jpg" alt="Bà chã">
+              <div class="name-tag">Bà chã iu</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 class="section-title">💬 Có đôi lời ông chã mún nói</h2>
+          <div class="type" id="text2" style="font-size:1.05rem;min-height:160px"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2 class="section-title">📸 Những khoảnh khắc đáng iu của bà chã</h2>
+        <div class="gallery-grid" id="fullGallery" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px"></div>
+      </div>
+    </div>
+
+    <p class="footer-note">Tình yêu xa không phải là chờ đợi,<br>mà là vẫn chọn nhau mỗi ngày.<br>Ông chã yêu bà chã iu rất nhiều 💖</p>
+  </div>
+</div>
+
+<script>
+const state = {
+  messageIndex: 0,
+  messageTyping: false,
+  messageProceeding: false,
+  noClicks: 0,
+  yesClicked: false,
+  finalConfirmed: false,
+  fullShown: false,
+  timeRevealed: 0,
+  timeProceeding: false,
+  galleryViewedCount: 0,
+  galleryViewed: Array(8).fill(false),
+  galleryRendered: false,
+  galleryThumbnails: []
+};
+
+const questionLayout = {
+  yesX: 0,
+  yesY: 0,
+  noX: 0,
+  noY: 0
+};
+
+const startDate = new Date('2025-04-28T00:00:00');
+
+const messages = [
+  'Gửi bà chã iu... Một năm qua là hành trình hạnh phúc nhất của ông chã 💕',
+  'Có những ngày nắng, có những ngày mưa, nhưng quan trọng là mình vẫn có nhau 🌸',
+  'Yêu xa vất vả thật đấy, nhưng nhìn thấy bà chã iu là mọi mệt mỏi tan biến hết ✨',
+  'Cảm ơn bà chã vì đã luôn bao dung, kiên nhẫn và thương ông chã thật nhiều 🫶',
+  'Ông chã hứa sẽ cố gắng hơn nữa để sớm được về ôm bà chã iu vào lòng 🌷',
+  'Mãi bên nhau như thế này bà chã nhé, yêu bà chã nhất trên đời! 💖'
+];
+
+const photos = [
+  {src:'images/anh1.jpg', cap:'Bà chã iu xinh như buổi chiều hồng dịu dàng ✨'},
+  {src:'images/anh2.jpg', cap:'Nhìn bà chã iu là ông chã thấy bình yên 💗'},
+  {src:'images/anh3.jpg', cap:'Bà chã iu đẹp theo cách rất riêng của bà chã iu 🌷'},
+  {src:'images/anh4.jpg', cap:'Thật may mắn vì ông chã có bà chã iu trong đời 🫶'},
+  {src:'images/anh5.jpg', cap:'Nụ cười bà chã iu làm cả ngày ông chã sáng bừng 🌸'},
+  {src:'images/anh6.jpg', cap:'Bà chã iu dễ thương đến mức ông chã muốn ôm mãi 💕'},
+  {src:'images/anh7.jpg', cap:'Khoảnh khắc này ông chã yêu nhất luôn đó nha 🥰'},
+  {src:'images/anh8.jpg', cap:'Cảm ơn bà chã iu vì đã ở bên ông chã 💖'}
+];
+
+const centerSlots = [
+  {left:'29%', top:'34%', rot:'0deg'},
+  {left:'43%', top:'34%', rot:'0deg'},
+  {left:'57%', top:'34%', rot:'0deg'},
+  {left:'71%', top:'34%', rot:'0deg'},
+  {left:'29%', top:'62%', rot:'0deg'},
+  {left:'43%', top:'62%', rot:'0deg'},
+  {left:'57%', top:'62%', rot:'0deg'},
+  {left:'71%', top:'62%', rot:'0deg'}
+];
+
+const sideSlots = [
+  {side:'left', top:'10%', rot:'-10deg'},
+  {side:'left', top:'28%', rot:'-6deg'},
+  {side:'left', top:'46%', rot:'-8deg'},
+  {side:'left', top:'64%', rot:'-4deg'},
+  {side:'right', top:'10%', rot:'8deg'},
+  {side:'right', top:'28%', rot:'5deg'},
+  {side:'right', top:'46%', rot:'9deg'},
+  {side:'right', top:'64%', rot:'4deg'}
+];
+
+const sadTimeMessages = [
+  'Ơ kìa... bà chã iu lỡ tay bấm nhầm đúng không? Thử lại nha 🥺',
+  'Ông chã hơi "dỗi" một xíu rồi đó, bà chã nhớ kỹ lại xem nào 💔',
+  'Sai một li là đi một dặm, nhưng sai câu này là đi vào tim ông chã buồn đó 😢',
+  'Không sao, ông chã vẫn đợi bà chã iu ở đây, chọn lại đi mà 💗',
+  'Ngoan nào bà chã iu, ông chã tin là bà chã nhớ ngày mình yêu nhau mà ❤️'
+];
+
+const correctTimeMessages = [
+  'Đúng rồi bà chã iu! ❤️ Ông chã rất tự hào về bà chã iu',
+  'Giỏi quá bà chã iu của ông chã! Ông chã biết mà bà chã iu nhớ hết 💖',
+  'Chính xác luôn! 365 ngày bên nhau, ông chã yêu bà chã iu nhiều lắm 🌷'
+];
+
+const gallerySadLines = [
+  'Ừm… câu này buồn quá đi mất 😢',
+  'Ông chã hơi xót tim một chút đó nha 💔',
+  'Không sao đâu, ông chã vẫn thương bà chã iu nhiều lắm 🥺',
+  'Thôi mình thử lại một lần nữa nha 💗'
+];
+
+const galleryPraiseLines = [
+  'Trời ơi, sao bà chã iu của ông chã lại xinh thế này! ✨',
+  'Nụ cười này là "liều thuốc" cho trái tim ông chã đó 💗',
+  'Xinh xỉu up xỉu down luôn bà chã ơi 🫶',
+  'Bà chã iu đẹp như một đóa hoa hồng nhỏ vậy đó 🌷',
+  'Nhìn cái mặt đáng yêu thế này sao mà ông chã không yêu cho được 🥰',
+  'Khoảnh khắc này là vô giá với ông chã luôn 💞'
+];
+
+function showStep(id, delay = 0) {
+  setTimeout(() => {
+    const el = document.getElementById(id);
+    if (el) el.classList.add('show');
+  }, delay);
+}
+
+function hideAllMain() {
+  ['introStep','timeStep','messageStep','galleryStep','questionStep'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove('show');
+  });
+}
+
+function dropHearts(amount, big = false, mood = 'love') {
+  const pools = {
+    love: ['❤','💗','💕','💞','✨'],
+    sad: ['😭','😢','💔','🥀','💧']
+  };
+  const cls = mood === 'sad' ? 'floating-sad' : 'floating-heart';
+  for (let i = 0; i < amount; i++) {
+    const h = document.createElement('div');
+    h.className = cls;
+    h.textContent = pools[mood][Math.floor(Math.random() * pools[mood].length)];
+    h.style.left = Math.random() * 100 + 'vw';
+    h.style.setProperty('--dx', (Math.random() * 120 - 60) + 'px');
+    h.style.fontSize = big ? (22 + Math.random() * 28) + 'px' : (14 + Math.random() * 18) + 'px';
+    h.style.animationDuration = (3.5 + Math.random() * 4) + 's';
+    h.style.opacity = (0.78 + Math.random() * 0.22).toFixed(2);
+    document.body.appendChild(h);
+    setTimeout(() => h.remove(), 10000);
+  }
+}
+
+function start() {
+  const startScreen = document.getElementById('startScreen');
+  startScreen.style.transition = 'opacity 0.4s ease';
+  startScreen.style.opacity = '0';
+  setTimeout(() => startScreen.remove(), 420);
+
+  const music = document.getElementById('music');
+  music.volume = 0.85;
+  music.play().catch(() => {});
+  showStep('introStep', 140);
+  setInterval(() => { if (Math.random() > 0.6) dropHearts(4); }, 900);
+}
+
+function updateCountdown() {
+  const now = new Date();
+  const diff = Math.max(0, now - startDate);
+  const sec = Math.floor(diff / 1000);
+  const days = Math.floor(sec / 86400);
+  const hours = Math.floor((sec % 86400) / 3600);
+  const mins = Math.floor((sec % 3600) / 60);
+  const secs = sec % 60;
+
+  [
+    {d:'days', h:'hours', m:'mins', s:'secs'},
+    {d:'days2', h:'hours2', m:'mins2', s:'secs2'}
+  ].forEach(item => {
+    const d = document.getElementById(item.d);
+    const h = document.getElementById(item.h);
+    const m = document.getElementById(item.m);
+    const x = document.getElementById(item.s);
+    if (d) {
+      d.textContent = String(days).padStart(2, '0');
+      h.textContent = String(hours).padStart(2, '0');
+      m.textContent = String(mins).padStart(2, '0');
+      x.textContent = String(secs).padStart(2, '0');
+    }
+  });
+}
+setInterval(updateCountdown, 1000);
+updateCountdown();
+
+function revealCountBoxes(selector, onDone) {
+  const boxes = Array.from(document.querySelectorAll(`${selector} .box`));
+  if (!boxes.length) {
+    if (onDone) onDone();
+    return;
+  }
+  boxes.forEach(b => b.classList.remove('show'));
+  boxes.forEach((box, idx) => {
+    setTimeout(() => {
+      box.classList.add('show');
+      dropHearts(8);
+      if (idx === boxes.length - 1 && onDone) {
+        setTimeout(onDone, 800);
+      }
+    }, idx * 650);
+  });
+}
+
+function resetTimeStepUI() {
+  const answers = document.getElementById('timeAnswers');
+  const feedback = document.getElementById('timeFeedback');
+  const continueRow = document.getElementById('timeContinueRow');
+  const continueBtn = document.getElementById('timeContinueBtn');
+  const timeCount = document.getElementById('timeCount');
+
+  if (answers) answers.style.display = 'grid';
+  if (feedback) feedback.innerHTML = '';
+  if (continueRow) continueRow.style.display = 'none';
+  if (continueBtn) {
+    continueBtn.textContent = 'Dạ ông chã iu 💞';
+    continueBtn.disabled = false;
+    continueBtn.style.opacity = '1';
+    continueBtn.onclick = beginTimeProceed;
+  }
+  if (timeCount) timeCount.style.display = 'none';
+  state.timeProceeding = false;
+  ['box1','box2','box3','box4'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove('show');
+  });
+}
+
+function goTime() {
+  hideAllMain();
+  showStep('timeStep', 40);
+  resetTimeStepUI();
+}
+
+function checkTimeAnswer(idx) {
+  const feedback = document.getElementById('timeFeedback');
+  const answers = [200, 365, 500, 730];
+
+  if (answers[idx] === 365) {
+    const praise = correctTimeMessages[Math.floor(Math.random() * correctTimeMessages.length)];
+    feedback.innerHTML = `<span style="color:#166534">${praise}</span>`;
+    document.getElementById('timeAnswers').style.display = 'none';
+    dropHearts(28, true);
+    revealTimeStep();
+  } else {
+    const msg = sadTimeMessages[Math.floor(Math.random() * sadTimeMessages.length)];
+    feedback.innerHTML = `<span style="color:#991b1b">${msg}</span>`;
+    setTimeout(() => { feedback.innerHTML = ''; }, 7000);
+  }
+}
+
+function revealTimeStep() {
+  document.getElementById('timeContinueRow').style.display = 'none';
+  const countDiv = document.getElementById('timeCount');
+  countDiv.style.display = 'grid';
+  revealCountBoxes('#timeCount', () => {
+    document.getElementById('timeContinueRow').style.display = 'flex';
+    const btn = document.getElementById('timeContinueBtn');
+    btn.textContent = 'Dạ ông chã iu 💞';
+    btn.onclick = beginTimeProceed;
+    btn.disabled = false;
+    btn.style.opacity = '1';
+  });
+}
+
+function beginTimeProceed() {
+  if (state.timeProceeding) return;
+  state.timeProceeding = true;
+
+  const btn = document.getElementById('timeContinueBtn');
+  let left = 5;
+  btn.disabled = true;
+  btn.style.opacity = '0.95';
+
+  const tick = () => {
+    if (left > 0) {
+      btn.textContent = `Dạ ông chã iu 💞 (${left}s)`;
+      left--;
+      setTimeout(tick, 1000);
+    } else {
+      btn.textContent = 'Dạ ông chã iu 💞';
+      goMessage();
+    }
+  };
+  tick();
+}
+
+function typeWriter(target, text, speed = 34, onDone = null) {
+  target.innerHTML = '';
+  let i = 0;
+  const tick = () => {
+    if (i < text.length) {
+      const ch = text.charAt(i);
+      target.innerHTML += ch === '\n' ? '<br>' : ch;
+      i++;
+      setTimeout(tick, speed);
+    } else if (typeof onDone === 'function') {
+      onDone();
+    }
+  };
+  tick();
+}
+
+function resetMessageStepUI() {
+  state.messageIndex = 0;
+  state.messageTyping = false;
+  state.messageProceeding = false;
+  const container = document.getElementById('text');
+  const btn = document.getElementById('messageBtn');
+  if (container) container.innerHTML = '';
+  if (btn) {
+    btn.disabled = false;
+    btn.style.opacity = '1';
+    btn.textContent = 'Dạ ông chã iu 💖';
+  }
+}
+
+function goMessage() {
+  hideAllMain();
+  showStep('messageStep', 40);
+  resetMessageStepUI();
+}
+
+function nextMessageLine() {
+  const container = document.getElementById('text');
+  const btn = document.getElementById('messageBtn');
+
+  if (state.messageTyping || state.messageProceeding) return;
+
+  if (state.messageIndex >= messages.length) {
+    beginMessageProceed();
+    return;
+  }
+
+  const idx = state.messageIndex;
+  const p = document.createElement('p');
+  p.style.margin = '18px 0';
+  p.style.opacity = '0';
+  p.style.transition = 'opacity 1s cubic-bezier(0.34, 1.56, 0.64, 1), transform 1s cubic-bezier(0.34, 1.56, 0.64, 1)';
+  p.style.transform = 'translateY(15px)';
+  p.style.textAlign = 'left';
+  p.style.whiteSpace = 'pre-line';
+  p.style.minHeight = '2em';
+  container.appendChild(p);
+
+  state.messageTyping = true;
+  btn.disabled = true;
+  btn.textContent = 'Đang viết…';
+
+  setTimeout(() => {
+    p.style.opacity = '1';
+    p.style.transform = 'translateY(0)';
+    typeWriter(p, messages[idx], 34, () => {
+      state.messageTyping = false;
+      state.messageIndex++;
+
+      btn.disabled = false;
+      btn.textContent = state.messageIndex >= messages.length ? 'Dạ ông chã iu 💞' : 'Dạ ông chã iu 💖';
+    });
+  }, 50);
+}
+
+function beginMessageProceed() {
+  if (state.messageProceeding || state.messageTyping) return;
+  state.messageProceeding = true;
+
+  const btn = document.getElementById('messageBtn');
+  let left = 5;
+  btn.disabled = true;
+
+  const tick = () => {
+    if (left > 0) {
+      btn.textContent = `Dạ ông chã iu 💞 (${left}s)`;
+      left--;
+      setTimeout(tick, 1000);
+    } else {
+      btn.textContent = 'Dạ ông chã iu 💞';
+      goGallery();
+    }
+  };
+  tick();
+}
+
+function updateGalleryQuestionVisibility() {
+  const layer = document.getElementById('galleryQuestionLayer');
+  const note = document.getElementById('galleryQuestionNote');
+  const hint = document.getElementById('galleryQuestionHint');
+  const wrap = document.getElementById('galleryAnswerWrap');
+
+  if (state.galleryViewedCount <= 0) {
+    note.style.display = 'block';
+    note.textContent = 'Hình như có gì đó phía sau, hãy cùng khám phá nhé bà chã iu 💗';
+    layer.style.opacity = '1';
+    layer.style.pointerEvents = 'none';
+    wrap.style.display = 'none';
+    return;
+  }
+
+  note.style.display = 'block';
+  note.textContent = 'Hình như có gì đó phía sau, hãy cùng khám phá nhé bà chã iu 💗';
+
+  layer.style.opacity = '1';
+  layer.style.filter = 'none';
+  layer.style.pointerEvents = state.galleryViewedCount >= photos.length ? 'auto' : 'none';
+  layer.style.zIndex = state.galleryViewedCount >= photos.length ? '12' : '2';
+  layer.style.transform = 'translate(-50%, -50%) scale(1)';
+
+  if (state.galleryViewedCount < photos.length) {
+    hint.textContent = 'Chạm vào từng ô ảnh để hé lộ điều đang ẩn bên dưới.';
+    wrap.style.display = 'none';
+  } else {
+    hint.textContent = 'Đáp án đã mở rồi nè… bà chã iu chọn một nha 💖';
+    wrap.style.display = 'flex';
+  }
+}
+
+function initialThumbSize() {
+  return window.innerWidth <= 640 ? 85 : 135;
+}
+
+function sideThumbSize() {
+  return window.innerWidth <= 640 ? 56 : 76;
+}
+
+function createFloatingGallery() {
+  const container = document.getElementById('galleryThumbLayer');
+  container.innerHTML = '';
+  state.galleryThumbnails = [];
+
+  photos.forEach((photo, index) => {
+    const div = document.createElement('div');
+    div.className = 'gallery-floating';
+    div.dataset.index = String(index);
+    div.dataset.state = 'center';
+
+    const size = initialThumbSize();
+    div.style.width = size + 'px';
+    div.style.height = size + 'px';
+    div.style.left = centerSlots[index].left;
+    div.style.top = centerSlots[index].top;
+    div.style.transform = `translate(-50%, -50%) rotate(${centerSlots[index].rot}) scale(.95)`;
+
+    div.innerHTML = `<img src="${photo.src}" alt="Ảnh ${index+1}">`;
+    div.onclick = (e) => {
+      e.stopPropagation();
+      showPhotoModal(index);
+    };
+
+    container.appendChild(div);
+    state.galleryThumbnails.push(div);
+  });
+
+  state.galleryRendered = true;
+  updateGalleryQuestionVisibility();
+}
+
+function moveThumbToSide(index) {
+  const thumb = state.galleryThumbnails[index];
+  if (!thumb) return;
+
+  const slot = sideSlots[index];
+  const size = sideThumbSize();
+
+  thumb.dataset.state = 'side';
+  thumb.style.width = size + 'px';
+  thumb.style.height = size + 'px';
+  thumb.style.top = slot.top;
+  thumb.style.transform = `rotate(${slot.rot}) scale(.92)`;
+  thumb.style.left = slot.side === 'left' ? '12px' : 'auto';
+  thumb.style.right = slot.side === 'right' ? '12px' : 'auto';
+  thumb.classList.add('viewed');
+}
+
+function showPhotoModal(index) {
+  const modal = document.createElement('div');
+  modal.className = 'gallery-modal show';
+  modal.innerHTML = `
+    <div class="gallery-modal-content" onclick="event.stopPropagation()">
+      <img src="${photos[index].src}" alt="Ảnh phóng to">
+      <div class="gallery-modal-caption">${photos[index].cap}</div>
+    </div>
+  `;
+
+  modal.onclick = () => {
+    modal.remove();
+
+    if (!state.galleryViewed[index]) {
+      state.galleryViewed[index] = true;
+      state.galleryViewedCount++;
+      moveThumbToSide(index);
+      updateGalleryQuestionVisibility();
+
+      if (state.galleryViewedCount >= photos.length) {
+        setTimeout(() => {
+          document.getElementById('galleryQuestionLayer').scrollIntoView({behavior:'smooth', block:'center'});
+        }, 200);
+      }
+    }
+  };
+
+  document.body.appendChild(modal);
+}
+
+function answerGalleryQuestion(isCorrect) {
+  const feedback = document.getElementById('galleryFeedback');
+
+  if (isCorrect) {
+  feedback.innerHTML = `<span style="color:#166534">Đúng rồi! Cô bé đáng iu này là của ông chã iu 💞</span>`;
+  const heartBursts = [6, 7, 8, 7, 8, 9, 8];
+  heartBursts.forEach((count, i) => {
+    setTimeout(() => dropHearts(count, i === 0), i * 450);
+  });
+
+  setTimeout(() => {
+    hideAllMain();
+    showStep('questionStep');
+    setTimeout(resetQuestionButtons, 50);
+  }, 8000);
+  } else {
+    feedback.innerHTML = `<span style="color:#991b1b">${gallerySadLines[Math.floor(Math.random() * gallerySadLines.length)]}</span>`;
+    dropHearts(12, false, 'sad');
+    setTimeout(() => { feedback.innerHTML = ''; }, 7000);
+  }
+}
+
+
+function placeChoiceButton(btn, container, centerX, centerY, scale = 1) {
+  const padding = 18;
+
+  const w = btn.offsetWidth * scale;
+  const h = btn.offsetHeight * scale;
+
+  const halfW = w / 2;
+  const halfH = h / 2;
+
+  const minX = padding + halfW;
+  const maxX = container.clientWidth - padding - halfW;
+  const minY = padding + halfH;
+  const maxY = container.clientHeight - padding - halfH;
+
+  const safeX = Math.min(maxX, Math.max(minX, centerX));
+  const safeY = Math.min(maxY, Math.max(minY, centerY));
+
+  btn.style.left = safeX + 'px';
+  btn.style.top = safeY + 'px';
+  btn.style.right = 'auto';
+  btn.style.bottom = 'auto';
+  btn.style.transform = `translate(-50%, -50%) scale(${scale})`;
+  btn.style.transformOrigin = 'center';
+}
+
+
+function resetQuestionButtons() {
+  const yesBtn = document.getElementById('yesBtn');
+  const noBtn = document.getElementById('noBtn');
+  const choiceContainer = document.getElementById('choiceContainer');
+
+  if (!yesBtn || !noBtn || !choiceContainer) return;
+
+  yesBtn.style.position = 'absolute';
+  noBtn.style.position = 'absolute';
+  yesBtn.style.opacity = '1';
+  noBtn.style.opacity = '1';
+  yesBtn.style.pointerEvents = 'auto';
+  noBtn.style.pointerEvents = 'auto';
+  yesBtn.style.zIndex = '9998';
+  noBtn.style.zIndex = '9999';
+
+  const w = choiceContainer.clientWidth;
+  const h = choiceContainer.clientHeight;
+  const cy = h / 2;
+
+  const gap = Math.max(
+    Math.max(yesBtn.offsetWidth, noBtn.offsetWidth) + (window.innerWidth <= 640 ? 36 : 56),
+    window.innerWidth <= 640 ? 140 : 180
+  );
+
+  questionLayout.yesX = w / 2 - gap / 2;
+  questionLayout.noX = w / 2 + gap / 2;
+  questionLayout.yesY = cy;
+  questionLayout.noY = cy;
+
+  placeChoiceButtonInContainer(yesBtn, choiceContainer, questionLayout.yesX, questionLayout.yesY, 1);
+  placeChoiceButtonInContainer(noBtn, choiceContainer, questionLayout.noX, questionLayout.noY, 1);
+}
+
+function placeChoiceButtonInContainer(btn, container, centerX, centerY, scale = 1) {
+  const padding = 18;
+  const w = btn.offsetWidth * scale;
+  const h = btn.offsetHeight * scale;
+
+  const halfW = w / 2;
+  const halfH = h / 2;
+
+  const minX = padding + halfW;
+  const maxX = container.clientWidth - padding - halfW;
+  const minY = padding + halfH;
+  const maxY = container.clientHeight - padding - halfH;
+
+  const safeX = Math.min(maxX, Math.max(minX, centerX));
+  const safeY = Math.min(maxY, Math.max(minY, centerY));
+
+  btn.style.left = safeX + 'px';
+  btn.style.top = safeY + 'px';
+  btn.style.right = 'auto';
+  btn.style.bottom = 'auto';
+  btn.style.transform = `translate(-50%, -50%) scale(${scale})`;
+  btn.style.transformOrigin = 'center';
+}
+
+function placeChoiceButtonInViewport(btn, centerX, centerY, scale = 1) {
+  const padding = 32;
+
+  const w = btn.offsetWidth * scale;
+  const h = btn.offsetHeight * scale;
+
+  const halfW = w / 2;
+  const halfH = h / 2;
+
+  const viewportW = window.visualViewport ? window.visualViewport.width : window.innerWidth;
+  const viewportH = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+
+  const minX = padding + halfW;
+  const maxX = viewportW - padding - halfW;
+  const minY = padding + halfH;
+  const maxY = viewportH - padding - halfH;
+
+  const safeX = Math.min(maxX, Math.max(minX, centerX));
+  const safeY = Math.min(maxY, Math.max(minY, centerY));
+
+  btn.style.position = 'fixed';
+  btn.style.left = safeX + 'px';
+  btn.style.top = safeY + 'px';
+  btn.style.right = 'auto';
+  btn.style.bottom = 'auto';
+  btn.style.transform = `translate(-50%, -50%) scale(${scale})`;
+  btn.style.transformOrigin = 'center';
+}
+
+function getSafeRandomPointForButton(btn, padding = 32) {
+  const viewportW = window.visualViewport ? window.visualViewport.width : window.innerWidth;
+  const viewportH = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+
+  const w = btn.offsetWidth;
+  const h = btn.offsetHeight;
+
+  const minX = padding + w / 2;
+  const maxX = viewportW - padding - w / 2;
+  const minY = padding + h / 2;
+  const maxY = viewportH - padding - h / 2;
+
+  return {
+    x: minX + Math.random() * Math.max(1, maxX - minX),
+    y: minY + Math.random() * Math.max(1, maxY - minY)
+  };
+}
+
+function moveNo() {
+  state.noClicks++;
+  document.body.classList.add('sad-mode');
+
+  const lines = [
+    'Ừm… ông chã hơi buồn một chút đó nha 😢',
+    'Trái tim ông chã đang xẹp dần rồi… 💔',
+    'Thôi mà bà chã iu, ông chã chỉ muốn nghe “Đồng ý” thôi 🥺',
+    'Ông chã vẫn đang chờ cái gật đầu xinh xắn của bà chã iu đây 💗',
+    'Ông chã buồn lắm rồi, nhưng vẫn không bỏ cuộc đâu… 🥀',
+    'Bà chã nỡ lòng nào từ chối ông chã sao? 💧'
+  ];
+
+  showFloatingSadNote(lines[Math.min(state.noClicks - 1, lines.length - 1)]);
+
+  const yesBtn = document.getElementById('yesBtn');
+  const noBtn = document.getElementById('noBtn');
+  if (!yesBtn || !noBtn) return;
+
+  yesBtn.style.position = 'absolute';
+  noBtn.style.position = 'absolute';
+  yesBtn.style.zIndex = '9998';
+  noBtn.style.zIndex = '9999';
+  yesBtn.style.opacity = '1';
+  noBtn.style.opacity = '1';
+  yesBtn.style.pointerEvents = 'auto';
+  noBtn.style.pointerEvents = 'auto';
+
+  const yesScale = 1 + state.noClicks * 0.9;
+  yesBtn.style.left = questionLayout.yesX + 'px';
+  yesBtn.style.top = questionLayout.yesY + 'px';
+  yesBtn.style.transform = `translate(-50%, -50%) scale(${yesScale})`;
+  yesBtn.style.transformOrigin = 'center';
+
+  const p = getSafeRandomPointForButton(noBtn, 32);
+  placeChoiceButtonInViewport(noBtn, p.x, p.y, 1);
+
+  yesBtn.style.boxShadow = `0 18px 36px rgba(255,79,147,${Math.min(.7, .24 + state.noClicks * .05)})`;
+  noBtn.style.boxShadow = '0 14px 32px rgba(128,48,78,.15)';
+}
+
+function sayYes() {
+  if (state.yesClicked) return;
+  state.yesClicked = true;
+  document.body.classList.remove('sad-mode');
+
+  const yesBtn = document.getElementById('yesBtn');
+  const noBtn = document.getElementById('noBtn');
+  const emotionLine = document.getElementById('emotionLine');
+  const questionText = document.getElementById('questionText');
+  const flash = document.getElementById('flash');
+  const finalRow = document.getElementById('finalConfirmRow');
+
+  if (yesBtn) yesBtn.style.display = 'none';
+  if (noBtn) noBtn.style.display = 'none';
+  if (finalRow) finalRow.style.display = 'flex';
+
+  questionText.textContent = 'Yayyyy… ông chã vui lắm rồi 💖';
+  emotionLine.innerHTML = `<b style="color:#166534">Yayyyy 💞 Bà chã iu làm ông chã vui quá trời luôn!</b>`;
+
+  flash.classList.add('show');
+  setTimeout(() => flash.classList.remove('show'), 1200);
+
+  const heartBursts = [6, 7, 8, 7, 8, 9, 8];
+  heartBursts.forEach((count, i) => {
+    setTimeout(() => dropHearts(count, i === 0), i * 450);
+  });
+}
+
+function showFloatingSadNote(text) {
+  const note = document.createElement('div');
+  note.className = 'kudos sad-note';
+  note.textContent = text;
+  note.style.left = (20 + Math.random() * 60) + 'vw';
+  note.style.top = (16 + Math.random() * 52) + 'vh';
+  document.body.appendChild(note);
+  setTimeout(() => note.remove(), 5000);
+}
+
+function confirmLove() {
+  if (state.finalConfirmed) return;
+  state.finalConfirmed = true;
+
+  const btn = document.getElementById('finalConfirmBtn');
+  let left = 5;
+  btn.disabled = true;
+
+  const tick = () => {
+    if (left > 0) {
+      btn.textContent = `Dạ iu ông chã nhìu 💞 (${left}s)`;
+      left--;
+      setTimeout(tick, 1000);
+    } else {
+      const heartBursts = [8, 8, 10, 8, 10, 12, 10, 8, 10];
+      heartBursts.forEach((count, i) => {
+        setTimeout(() => dropHearts(count, i === 0), i * 450);
+      });
+
+      setTimeout(() => {
+        revealFullLayout();
+      }, 400);
+    }
+  };
+  tick();
+}
+
+function revealFullLayout() {
+  if (state.fullShown) return;
+  state.fullShown = true;
+  hideAllMain();
+
+  const full = document.getElementById('fullLayout');
+  full.classList.add('show');
+  document.getElementById('bgPortraits').classList.add('show');
+
+  revealCountBoxes('#fullLayout', null);
+
+  document.getElementById('text2').innerHTML =
+    messages.map(m => `<p style="margin:12px 0">${m}</p>`).join('');
+
+  const fullGallery = document.getElementById('fullGallery');
+  fullGallery.innerHTML = '';
+  photos.forEach((photo, index) => {
+    const card = document.createElement('div');
+    card.className = 'photo-card';
+    card.style.minHeight = '180px';
+    card.innerHTML = `
+      <img src="${photo.src}" alt="Ảnh ${index+1}">
+      <div class="cap">
+        <span class="badge-mini">💗 Khoảnh khắc ${index+1}</span>
+        ${photo.cap}
+      </div>
+    `;
+    card.onclick = () => showPhotoModal(index);
+    fullGallery.appendChild(card);
+  });
+}
+
+function createSparkles() {
+  const wrap = document.getElementById('sparkle');
+  for (let i = 0; i < 18; i++) {
+    const s = document.createElement('i');
+    s.style.left = Math.random() * 100 + 'vw';
+    s.style.animationDelay = (Math.random() * 12) + 's';
+    s.style.animationDuration = (9 + Math.random() * 13) + 's';
+    s.style.width = s.style.height = (4 + Math.random() * 7) + 'px';
+    wrap.appendChild(s);
+  }
+}
+
+function createPortraitBackground() {
+  const wrap = document.getElementById('bgPortraits');
+  const slots = [
+    {x:'4%', y:'12%', r:'-11deg', src:'images/anh1.jpg'},
+    {x:'85%', y:'9%', r:'12deg', src:'images/anh2.jpg'},
+    {x:'6%', y:'68%', r:'8deg', src:'images/anh3.jpg'},
+    {x:'84%', y:'72%', r:'-9deg', src:'images/anh4.jpg'},
+    {x:'32%', y:'3%', r:'5deg', src:'images/anh5.jpg'},
+    {x:'52%', y:'81%', r:'-6deg', src:'images/anh6.jpg'},
+    {x:'60%', y:'2%', r:'-5deg', src:'images/anh7.jpg'},
+    {x:'30%', y:'74%', r:'7deg', src:'images/anh8.jpg'}
+  ];
+  slots.forEach((p, idx) => {
+    const d = document.createElement('div');
+    d.className = 'portrait';
+    d.style.left = p.x;
+    d.style.top = p.y;
+    d.style.setProperty('--rot', p.r);
+    d.style.animationDelay = (idx * 0.4) + 's';
+    const img = document.createElement('img');
+    img.src = p.src;
+    img.alt = 'Ảnh của bà chã iu';
+    d.appendChild(img);
+    d.addEventListener('click', () => {
+      const note = document.createElement('div');
+      note.className = 'kudos';
+      note.textContent = galleryPraiseLines[Math.floor(Math.random() * galleryPraiseLines.length)];
+      note.style.left = (18 + Math.random() * 64) + 'vw';
+      note.style.top = (16 + Math.random() * 52) + 'vh';
+      document.body.appendChild(note);
+      setTimeout(() => note.remove(), 5000);
+      dropHearts(9);
+    });
+    wrap.appendChild(d);
+  });
+}
+
+function goGallery() {
+  hideAllMain();
+  showStep('galleryStep', 40);
+  if (!state.galleryRendered) createFloatingGallery();
+  updateGalleryQuestionVisibility();
+}
+
+createSparkles();
+createPortraitBackground();
+
+setInterval(() => {
+  const layer = document.getElementById('galleryQuestionLayer');
+  if (layer && state.galleryRendered) updateGalleryQuestionVisibility();
+}, 500);
+</script>
+</body>
+</html>
