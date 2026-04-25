@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Kỷ Niệm 1 Năm Cùng Em 💖</title>
 
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
 <style>
 :root{
   --bg1:#ff7eb3;
@@ -875,6 +878,27 @@ button:disabled{
     font-size:1.5rem;
   }
 }
+
+.map-wrap {
+  box-shadow: 0 8px 24px rgba(255, 182, 193, 0.4); /* Đổ bóng màu hồng nhạt */
+  transition: transform 0.3s ease;
+}
+
+#loveMap {
+  background-color: #eee; /* Màu nền chờ khi bản đồ chưa load xong */
+}
+
+/* Hiệu ứng cho nút bấm */
+.small-btn {
+  padding: 10px 20px;
+  border-radius: 50px;
+  border: none;
+  background: #ff8fa3;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
 </style>
 </head>
 
@@ -893,7 +917,7 @@ button:disabled{
 </div>
 
 <audio id="music" loop preload="auto">
-  <source src="music/Gap_doi_yeu_thuong.mp3" type="audio/mpeg">
+  <source src="musics/Gap_doi_yeu_thuong.mp3" type="audio/mpeg">
 </audio>
 
 <div class="container">
@@ -901,9 +925,33 @@ button:disabled{
     <div class="badge">💗 Kỷ niệm 1 năm yêu xa</div>
     <h1>Gửi bà chã iu 💖</h1>
     <p>Một trang web nhỏ được ông chã thiết kế chỉ dành cho bà chã iu. Mở từng lớp một như ông chã đang ôm bà chã iu thật chậm và thật dịu dàng.</p>
-    <div class="row"><button class="small-btn" onclick="goTime()">Dạ ông chã iu 🌸</button></div>
+    <div class="row"><button class="small-btn" onclick="goLocation()">Dạ ông chã iu 🌸</button></div>
   </section>
 
+  <section class="card step" id="locationStep" style="margin-top:18px">
+    <h2>📍 Khoảng cách địa lý</h2>
+    <p style="margin:16px 0 20px;color:#7b3759;line-height:1.8">
+      Góc nhìn này xa quó, nhấn "Xem chi tiết" đề nhìn rõ hơn nhó Như ơi =)) 💖
+    </p>
+  
+    <div class="row">
+      <button class="small-btn" onclick="showFixedLoveMap()">Xem bản đồ chi tiết 💗</button>
+      <button class="small-btn" onclick="goTime()">Tiếp tụp</button>
+    </div>
+  
+    <div id="locationStatus" style="margin-top:16px;font-weight:700;min-height:30px;color:#7b3759"></div>
+  
+    <div class="map-wrap" style="position: relative; margin-top: 16px; border-radius: 24px; overflow: hidden; border: 2px solid #ffcad4;">
+      <div id="loveMap" style="height:420px; width: 100%; background: #fdf0f0;"></div>
+      
+      <div class="map-hud" id="mapHud" style="position: absolute; bottom: 10px; left: 10px; background: rgba(255,255,255,0.8); padding: 5px 10px; border-radius: 12px; font-size: 0.8rem; display: none;">
+        Đang hiển thị vị trí của bạn...
+      </div>
+    </div>
+  
+    <div id="locationInfo" style="margin-top:14px;font-size:1rem;line-height:1.7;color:#5c1f42"></div>
+  </section>
+  
   <section class="card step" id="timeStep" style="margin-top:18px">
     <h2>⏳ ĐẾM NGÀY YÊU THƯƠNG</h2>
     <p style="margin:16px 0 20px;color:#7b3759">Bà chã iu có nhớ thời gian chúng ta bên nhau là bao lâu rồi không?</p>
@@ -934,11 +982,11 @@ button:disabled{
   </section>
 
   <section class="card step" id="galleryStep" style="margin-top:18px">
-    <h2>📸 Những tấm hình đáng iu của bà chã</h2>
+    <h2> 💗 Một chút đáng iu 💗</h2>
     <div class="gallery-container" id="galleryContainer">
       <div class="gallery-question-note" id="galleryQuestionNote">Hình như có gì đó phía sau, hãy cùng khám phá nhé bà chã iu 💗</div>
       <div class="gallery-question-layer" id="galleryQuestionLayer">
-        <h3 id="galleryQuestionTitle">Cô bé đáng iu này là của ai dạ? =))</h3>
+        <h3 id="galleryQuestionTitle">Thắc mắc bé nhỏ...</h3>
         <p class="hint" id="galleryQuestionHint">Chạm vào từng ô ảnh để hé lộ điều đang ẩn bên dưới.</p>
         <div class="gallery-question-actions" id="galleryAnswerWrap">
           <button id="galleryWrongBtn" onclick="answerGalleryQuestion(0)" style="background:#fff;border:2px solid #ff8ab8;color:#5c1f42;font-weight:700">Của ai cũng được 😭</button>
@@ -951,17 +999,24 @@ button:disabled{
   </section>
 
   <section class="card question-panel step" id="questionStep" style="margin-top:18px">
-    <h2>💖 Một câu hỏi thật nhẹ nhàng</h2>
+    <h2>💖 Thắc mắc to đùng =)) </h2>
     <p class="question-sub" id="questionText">Bà chã còn mún đồng hành với ông chã nhạt nhẽo này nữa khum 💗</p>
     <div class="qa-area" id="qaArea">
+      <div id="yesMedia" style="
+        display:none;
+        position:absolute;
+        inset:18px;
+        border-radius:22px;
+        overflow:hidden;
+        background:#fff;
+        align-items:center;
+        justify-content:center;
+      "></div>
+    
       <div class="choice-container" id="choiceContainer">
         <button class="choice-btn yes-btn" id="yesBtn" onclick="sayYes()">Dạ có ạaa</button>
         <button class="choice-btn no-btn" id="noBtn" onclick="moveNo()">Hông thèm😭</button>
       </div>
-    </div>
-    <div id="emotionLine" style="margin-top:30px;font-size:1.1rem;color:#7b3759;min-height:80px;font-weight:600"></div>
-    <div class="row" id="finalConfirmRow" style="display:none">
-      <button class="small-btn" id="finalConfirmBtn" onclick="confirmLove()">Dạ iu ông chã nhìu 💞</button>
     </div>
   </section>
 
@@ -995,13 +1050,13 @@ button:disabled{
 
             <div class="avatar-circle">
               <img src="images/anh_ba_cha.jpg" alt="Bà chã">
-              <div class="name-tag">Bà chã iu</div>
+              <div class="name-tag">Bà chã</div>
             </div>
           </div>
         </div>
 
         <div class="card">
-          <h2 class="section-title">💬 Có đôi lời ông chã mún nói</h2>
+          <h2 class="section-title">💬 Đôi lời ông chã mún nói</h2>
           <div class="type" id="text2" style="font-size:1.05rem;min-height:160px"></div>
         </div>
       </div>
@@ -1012,12 +1067,18 @@ button:disabled{
       </div>
     </div>
 
-    <p class="footer-note">Tình yêu xa không phải là chờ đợi,<br>mà là vẫn chọn nhau mỗi ngày.<br>Ông chã yêu bà chã iu rất nhiều 💖</p>
+    <p class="footer-note">Yêu xa không phải là chờ đợi,<br>mà là vẫn chọn nhau mỗi ngày.<br>Ông chã yêu bà chã iu rất nhiều 💖</p>
   </div>
 </div>
 
 <script>
+
 const state = {
+  location: {
+  map: null,
+  myMarker: null,
+  herMarker: null
+  },
   messageIndex: 0,
   messageTyping: false,
   messageProceeding: false,
@@ -1031,7 +1092,9 @@ const state = {
   galleryViewed: Array(8).fill(false),
   galleryRendered: false,
   galleryThumbnails: []
+  
 };
+
 
 const questionLayout = {
   yesX: 0,
@@ -1041,6 +1104,31 @@ const questionLayout = {
 };
 
 const startDate = new Date('2025-04-28T00:00:00');
+
+const myLocation = {
+  lat: 21.0693327,
+  lng: 105.7613431 //Hà nội 
+};
+
+const herLocation = {
+  lat: 10.390283554970638,   // TP.HCM
+  lng: 104.48410583218867
+};
+
+const routePoints = [
+  [myLocation.lat, myLocation.lng],
+  [19.54234240976038, 105.6578048302268],
+  [18.947211929513575, 105.5437185339557],
+  [18.140430226849677, 106.06891010094935],
+  [16.931107198880444, 107.00198914762476],
+  [15.001269142578224, 108.81110986187605],
+  [12.66728370483034, 109.13328204386599],
+  [11.286076467227582, 108.18757477332527],
+  [10.867287014711957, 107.27313144537597],
+  [10.537824243002332, 105.62713345506721],
+  [10.182997743660371, 104.95335631255827],
+  [herLocation.lat, herLocation.lng]
+];
 
 const messages = [
   'Gửi bà chã iu... Một năm qua là hành trình hạnh phúc nhất của ông chã 💕',
@@ -1052,14 +1140,14 @@ const messages = [
 ];
 
 const photos = [
-  {src:'images/anh1.jpg', cap:'Bà chã iu xinh như buổi chiều hồng dịu dàng ✨'},
-  {src:'images/anh2.jpg', cap:'Nhìn bà chã iu là ông chã thấy bình yên 💗'},
-  {src:'images/anh3.jpg', cap:'Bà chã iu đẹp theo cách rất riêng của bà chã iu 🌷'},
-  {src:'images/anh4.jpg', cap:'Thật may mắn vì ông chã có bà chã iu trong đời 🫶'},
-  {src:'images/anh5.jpg', cap:'Nụ cười bà chã iu làm cả ngày ông chã sáng bừng 🌸'},
-  {src:'images/anh6.jpg', cap:'Bà chã iu dễ thương đến mức ông chã muốn ôm mãi 💕'},
-  {src:'images/anh7.jpg', cap:'Khoảnh khắc này ông chã yêu nhất luôn đó nha 🥰'},
-  {src:'images/anh8.jpg', cap:'Cảm ơn bà chã iu vì đã ở bên ông chã 💖'}
+  {src:'images/anh1.jpg', cap:'Bé mèo iu và những bé mèo ✨'},
+  {src:'images/anh2.jpg', cap:'Quà gì dọ quà gì dọ 💗'},
+  {src:'images/anh3.jpg', cap:'Bà chã chinh iu thí 🌷'},
+  {src:'images/anh4.jpg', cap:'Trông điện ảnh vãi ò bà chã uiii '},
+  {src:'images/anh5.jpg', cap:'Nhìn xinh như mí tỉ tỉ tung của lun ó 🌸'},
+  {src:'images/anh6.jpg', cap:'Trông cứ ngây thơ kỉu gì ó bà chã💕'},
+  {src:'images/anh7.jpg', cap:'Chụp vội mò vẫn xinh dạ chài'},
+  {src:'images/anh8.jpg', cap:'Trông cái má phúng phính là chỉ mún cắn cho mí miếng💖'}
 ];
 
 const centerSlots = [
@@ -1093,25 +1181,25 @@ const sadTimeMessages = [
 ];
 
 const correctTimeMessages = [
-  'Đúng rồi bà chã iu! ❤️ Ông chã rất tự hào về bà chã iu',
-  'Giỏi quá bà chã iu của ông chã! Ông chã biết mà bà chã iu nhớ hết 💖',
-  'Chính xác luôn! 365 ngày bên nhau, ông chã yêu bà chã iu nhiều lắm 🌷'
+  'Nhấn hết cả 4 nút gòi phải khum =)) Bà chã đó nha, coi chừng mìn',
+  'Ỏ 365 ngày hỏ =)) Khum nhớ giẫy đùn đùn đùn cho đấy 💖',
+  'Đúng òi nà! Gái iu nhà ai mò giỏi quó dạ 🌷'
 ];
 
 const gallerySadLines = [
-  'Ừm… câu này buồn quá đi mất 😢',
-  'Ông chã hơi xót tim một chút đó nha 💔',
-  'Không sao đâu, ông chã vẫn thương bà chã iu nhiều lắm 🥺',
-  'Thôi mình thử lại một lần nữa nha 💗'
+  'Bà chã hong thưn mìn 😢',
+  'Bà chã iu hớt thưn mìn gòi 💔',
+  'Giả bộ chọn lại cái đi cục dàng =))',
+  'Nút bên cạnh trông xinh chưa kìa, rất đáng để nhấn ó💗'
 ];
 
 const galleryPraiseLines = [
-  'Trời ơi, sao bà chã iu của ông chã lại xinh thế này! ✨',
-  'Nụ cười này là "liều thuốc" cho trái tim ông chã đó 💗',
-  'Xinh xỉu up xỉu down luôn bà chã ơi 🫶',
-  'Bà chã iu đẹp như một đóa hoa hồng nhỏ vậy đó 🌷',
+  'Của kao của kao bé Như là của kaoooooo! ✨',
+  'Bà chã iu ngon quó dạ chài =)))💗',
+  'Cười xinh như thí mò toàn thí quát mìn',
+  'Nhìn cái má kìa chỉ mún cắn cho miếng thoi 🌷',
   'Nhìn cái mặt đáng yêu thế này sao mà ông chã không yêu cho được 🥰',
-  'Khoảnh khắc này là vô giá với ông chã luôn 💞'
+  'Baobei của ông chã đáng iu quó chài 💞'
 ];
 
 function showStep(id, delay = 0) {
@@ -1122,7 +1210,7 @@ function showStep(id, delay = 0) {
 }
 
 function hideAllMain() {
-  ['introStep','timeStep','messageStep','galleryStep','questionStep'].forEach(id => {
+  ['introStep','locationStep','timeStep','galleryStep','messageStep','questionStep'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.classList.remove('show');
   });
@@ -1159,6 +1247,126 @@ function start() {
   music.play().catch(() => {});
   showStep('introStep', 140);
   setInterval(() => { if (Math.random() > 0.6) dropHearts(4); }, 900);
+}
+
+function goLocation() {
+  hideAllMain();
+  showStep('locationStep', 40);
+  showFixedLoveMap();
+  setTimeout(() => {
+    if (state.location.map) state.location.map.invalidateSize();
+  }, 300);
+}
+
+function buildSmoothRoute(points, samplesPerSegment = 16) {
+  if (points.length < 2) return points;
+
+  const out = [points[0]];
+
+  const get = (i) => points[Math.max(0, Math.min(points.length - 1, i))];
+
+  for (let i = 0; i < points.length - 1; i++) {
+    const p0 = get(i - 1);
+    const p1 = get(i);
+    const p2 = get(i + 1);
+    const p3 = get(i + 2);
+
+    for (let j = 1; j <= samplesPerSegment; j++) {
+      const t = j / samplesPerSegment;
+      const t2 = t * t;
+      const t3 = t2 * t;
+
+      const lat = 0.5 * (
+        (2 * p1[0]) +
+        (-p0[0] + p2[0]) * t +
+        (2 * p0[0] - 5 * p1[0] + 4 * p2[0] - p3[0]) * t2 +
+        (-p0[0] + 3 * p1[0] - 3 * p2[0] + p3[0]) * t3
+      );
+
+      const lng = 0.5 * (
+        (2 * p1[1]) +
+        (-p0[1] + p2[1]) * t +
+        (2 * p0[1] - 5 * p1[1] + 4 * p2[1] - p3[1]) * t2 +
+        (-p0[1] + 3 * p1[1] - 3 * p2[1] + p3[1]) * t3
+      );
+
+      out.push([lat, lng]);
+    }
+  }
+
+  return out;
+}
+
+function initLoveMap() {
+  if (state.location.map) return;
+
+  state.location.map = L.map('loveMap', {
+    zoomControl: true,
+    scrollWheelZoom: false,
+    dragging: true
+  }).fitBounds(L.latLngBounds(routePoints).pad(0.2));
+
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+    subdomains: 'abcd',
+    maxZoom: 20,
+    attribution: '&copy; OpenStreetMap &copy; CARTO'
+  }).addTo(state.location.map);
+
+  state.location.myMarker = L.marker([myLocation.lat, myLocation.lng])
+    .addTo(state.location.map)
+    .bindPopup('📍 Ông Chã ');
+}
+
+function showFixedLoveMap() {
+  initLoveMap();
+
+  if (state.location.herMarker) state.location.map.removeLayer(state.location.herMarker);
+  if (state.location.routeLine) state.location.map.removeLayer(state.location.routeLine);
+  if (state.location.routeMarkers) {
+    state.location.routeMarkers.forEach(m => state.location.map.removeLayer(m));
+  }
+
+  const smoothRoute = buildSmoothRoute(routePoints, 14);
+  const firstPoint = routePoints[0];
+  const lastPoint = routePoints[routePoints.length - 1];
+
+  state.location.myMarker = L.marker(firstPoint)
+    .addTo(state.location.map)
+    .bindPopup('📍 Ông chã');
+
+  state.location.herMarker = L.marker(lastPoint)
+    .addTo(state.location.map)
+    .bindPopup('💗 Bà chã');
+
+  state.location.routeLine = L.polyline(smoothRoute, {
+    color: '#ff4d94',
+    weight: 5,
+    opacity: 0.9,
+    dashArray: '10 12',
+    lineJoin: 'round'
+  }).addTo(state.location.map);
+
+  state.location.routeMarkers = routePoints.map((pt, idx) =>
+    L.circleMarker(pt, {
+      radius: idx === 0 || idx === routePoints.length - 1 ? 8 : 5,
+      color: '#ff4d94',
+      fillColor: '#ffffff',
+      fillOpacity: 1,
+      weight: 3
+    }).addTo(state.location.map)
+  );
+
+  state.location.map.fitBounds(L.latLngBounds(routePoints).pad(0.2));
+
+  document.getElementById('locationStatus').textContent = 'Lướt xuống dưới xem có gì nữa khum nà cục dàng 💖';
+  document.getElementById('locationInfo').innerHTML = `
+    <div>Ông chã: ${myLocation.lat.toFixed(6)}, ${myLocation.lng.toFixed(6)}</div>
+    <div>Bà chã: ${herLocation.lat.toFixed(6)}, ${herLocation.lng.toFixed(6)}</div>
+    <div> Trông cũng hông xa lúm bà chã nhỉ, trông còn ngắn hơn 🐧 của ông chã =))</div>
+  `;
+
+  const hud = document.getElementById('mapHud');
+  if (hud) hud.style.display = 'block';
 }
 
 function updateCountdown() {
@@ -1284,7 +1492,7 @@ function beginTimeProceed() {
       setTimeout(tick, 1000);
     } else {
       btn.textContent = 'Dạ ông chã iu 💞';
-      goMessage();
+      goGallery();
     }
   };
   tick();
@@ -1380,7 +1588,7 @@ function beginMessageProceed() {
       setTimeout(tick, 1000);
     } else {
       btn.textContent = 'Dạ ông chã iu 💞';
-      goGallery();
+      goQuestion();
     }
   };
   tick();
@@ -1414,7 +1622,7 @@ function updateGalleryQuestionVisibility() {
     hint.textContent = 'Chạm vào từng ô ảnh để hé lộ điều đang ẩn bên dưới.';
     wrap.style.display = 'none';
   } else {
-    hint.textContent = 'Đáp án đã mở rồi nè… bà chã iu chọn một nha 💖';
+    hint.textContent = 'Bé mèo ngóc ngớt này là .... 💖';
     wrap.style.display = 'flex';
   }
 }
@@ -1510,7 +1718,7 @@ function answerGalleryQuestion(isCorrect) {
   const feedback = document.getElementById('galleryFeedback');
 
   if (isCorrect) {
-  feedback.innerHTML = `<span style="color:#166534">Đúng rồi! Cô bé đáng iu này là của ông chã iu 💞</span>`;
+  feedback.innerHTML = `<span style="color:#166534"> Giỏi quó dợ! Cụa kao của kao, tất cả là cụa kaoooo hehehe .. 💞</span>`;
   const heartBursts = [6, 7, 8, 7, 8, 9, 8];
   heartBursts.forEach((count, i) => {
     setTimeout(() => dropHearts(count, i === 0), i * 450);
@@ -1518,7 +1726,7 @@ function answerGalleryQuestion(isCorrect) {
 
   setTimeout(() => {
     hideAllMain();
-    showStep('questionStep');
+    showStep('messageStep');
     setTimeout(resetQuestionButtons, 50);
   }, 8000);
   } else {
@@ -1528,6 +1736,11 @@ function answerGalleryQuestion(isCorrect) {
   }
 }
 
+function goQuestion() {
+  hideAllMain();
+  showStep('questionStep', 40);
+  setTimeout(resetQuestionButtons, 50);
+}
 
 function placeChoiceButton(btn, container, centerX, centerY, scale = 1) {
   const padding = 18;
@@ -1665,10 +1878,10 @@ function moveNo() {
   document.body.classList.add('sad-mode');
 
   const lines = [
-    'Ừm… ông chã hơi buồn một chút đó nha 😢',
-    'Trái tim ông chã đang xẹp dần rồi… 💔',
+    'Ông chã hong chịu dou 😢',
+    'Bé mèo ngoan nèo, đừng trêu ông chã dị nhó 💔',
     'Thôi mà bà chã iu, ông chã chỉ muốn nghe “Đồng ý” thôi 🥺',
-    'Ông chã vẫn đang chờ cái gật đầu xinh xắn của bà chã iu đây 💗',
+    'Đồng ý đi mò, năn nhỉ bà chã ó 💗',
     'Ông chã buồn lắm rồi, nhưng vẫn không bỏ cuộc đâu… 🥀',
     'Bà chã nỡ lòng nào từ chối ông chã sao? 💧'
   ];
@@ -1717,8 +1930,29 @@ function sayYes() {
   if (noBtn) noBtn.style.display = 'none';
   if (finalRow) finalRow.style.display = 'flex';
 
-  questionText.textContent = 'Yayyyy… ông chã vui lắm rồi 💖';
-  emotionLine.innerHTML = `<b style="color:#166534">Yayyyy 💞 Bà chã iu làm ông chã vui quá trời luôn!</b>`;
+  const yesMedia = document.getElementById('yesMedia');
+  if (yesMedia) {
+    yesMedia.style.display = 'flex';
+
+    // ẢNH:
+    yesMedia.innerHTML = `
+      <img src="images/anh9.jpg" alt="Ảnh đáng yêu =))"
+        style="width:100%;height:100%;object-fit:cover;border-radius:22px;">
+    `;
+
+    // HOẶC VIDEO, dùng đoạn này thay cho phần ảnh ở trên:
+    /*
+    yesMedia.innerHTML = `
+      <video autoplay muted playsinline controls
+        style="width:100%;height:100%;object-fit:cover;border-radius:22px;">
+        <source src="videos/video1.mp4" type="video/mp4">
+      </video>
+    `;
+    */
+  }
+
+  questionText.textContent = 'Iu bà chã nhìu hẹ hẹ 💖';
+  emotionLine.innerHTML = `<b style="color:#166534">💞 Ông chã bít là bà chã sẽ chọn gì mò!</b>`;
 
   flash.classList.add('show');
   setTimeout(() => flash.classList.remove('show'), 1200);
@@ -1789,7 +2023,7 @@ function revealFullLayout() {
     card.innerHTML = `
       <img src="${photo.src}" alt="Ảnh ${index+1}">
       <div class="cap">
-        <span class="badge-mini">💗 Khoảnh khắc ${index+1}</span>
+        <span class="badge-mini">💗 Khoảnh khắc cute thứ ${index+1}</span>
         ${photo.cap}
       </div>
     `;
