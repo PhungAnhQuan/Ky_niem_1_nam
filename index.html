@@ -495,7 +495,7 @@ button:disabled { opacity: .62; cursor: not-allowed; transform: none !important;
         </div>
 
         <div class="card">
-          <h2 class="section-title">💬 Đôi lời ông chã mún nói</h2>
+          <h2 class="section-title">💬 Đôi lời nhắn nhủ</h2>
           <div class="type" id="text2" style="font-size:1.05rem;min-height:160px"></div>
         </div>
       </div>
@@ -531,12 +531,32 @@ const state = {
 };
 
 const messageItems = [
-  { text: 'Gửi bà chã iu... Một năm qua là hành trình hạnh phúc nhất của ông chã 💕', audio: 'voices/01.mp3' },
-  { text: 'Có những ngày nắng, có những ngày mưa, nhưng quan trọng là mình vẫn có nhau 🌸', audio: 'voices/02.mp3' },
-  { text: 'Yêu xa vất vả thật đấy, nhưng nhìn thấy bà chã iu là mọi mệt mỏi tan biến hết ✨', audio: 'voices/03.mp3' },
-  { text: 'Cảm ơn bà chã vì đã luôn bao dung, kiên nhẫn và thương ông chã thật nhiều 🫶', audio: 'voices/04.mp3' },
-  { text: 'Ông chã hứa sẽ cố gắng hơn nữa để sớm được về ôm bà chã iu vào lòng 🌷', audio: 'voices/05.mp3' },
-  { text: 'Mãi bên nhau như thế này bà chã nhé, yêu bà chã nhất trên đời! 💖', audio: 'voices/06.mp3' }
+  { text: '💗 Như ơiiii!...', audio: 'voices/1.mp3' },
+  { text: 'Cho ông xã xin lỗi bà xã nhó...', audio: 'voices/2.mp3' },
+  { text: 'Mấy hôm nay... ông xã toàn nói dối bà xã là làm bài tập thôi...', audio: 'voices/3.mp3' },
+
+  { text: 'Nhưng mò... ông xã đã dành cả tuần nay... để làm nên món quà này cho bà xã đấy...', audio: 'voices/4.mp3' },
+  { text: 'Ông xã nghĩ là bà xã sẽ thích món quà này...', audio: 'voices/5.mp3' },
+  { text: 'Ông xã thấy nó còn sơ sài quó ò...', audio: 'voices/6.mp3' },
+
+  { text: 'Ông xã nghĩ là... nếu mà... mình tặng cái gì đó... lưu giữ được theo thời gian thì... mình sẽ có kỉ niệm hơn mò', audio: 'voices/7.mp3' },
+
+  { text: 'Một năm trôi qua ròi đó... mò ông xã không biết là... mình có thể đi xa được như thế này lun ó...', audio: 'voices/8.mp3' },
+  { text: 'Ông xã cũng không biết rằng... yêu nhau một năm... là dài hay là ngắn nữa...', audio: 'voices/9.mp3' },
+
+  { text: 'Nhưng chắc... nó cũng là một khoảng thời gian đủ để mình hiểu nhau mò... đúng không Như', audio: 'voices/10.mp3' },
+  { text: 'Như ... chắc cũng không còn lạ gì với... sự khờ khạo ngốc nghếch của ông xã nữa...', audio: 'voices/11.mp3' },
+
+  { text: 'Ông xã thì khờ thật đấy... nhưng... ông xã cũng yêu Như thật ... Như ạ...', audio: 'voices/12.mp3' },
+  { text: 'Ông xã muốn gặp Như lắm Như ơi...', audio: 'voices/13.mp3' },
+
+  { text: 'Ông xã ...không có ngại việc phải chờ đợi đâu...', audio: 'voices/14.mp3' },
+  { text: 'Nhưng mò không biết... mình phải chờ đến bao giờ nữa...', audio: 'voices/15.mp3' },
+
+  { text: 'Nhưng mò ông xã tin rằng là ...mình sẽ gặp được nhau Như ạ...', audio: 'voices/16.mp3' },
+  { text: 'Hi vọng rằng là chúng mình sẽ có một cái kết đẹp...', audio: 'voices/17.mp3' },
+
+  { text: 'Ông xã yêu như nhiều lắm ạ... Moahhhhhh', audio: 'voices/18.mp3' }
 ];
 
 function safePlay(audioEl) {
@@ -564,17 +584,20 @@ function playLineVoice(src) {
   voice.src = src;
   voice.load();
 
-  if (bgm) bgm.volume = 0.25;
+  // 1. Ép âm lượng ghi âm lên mức cao nhất (1.0 là 100%)
+  voice.volume = 1.0
+
+  if (bgm) bgm.volume = 0.1;
 
   voice.onended = () => {
-    if (bgm) bgm.volume = 1;
+    if (bgm) bgm.volume = 0.2;
     state.voicePlaying = false;
   };
 
   state.voicePlaying = true;
   safePlay(voice).catch(() => {
     state.voicePlaying = false;
-    if (bgm) bgm.volume = 1;
+    if (bgm) bgm.volume = 0.2;
   });
 }
 
@@ -616,10 +639,10 @@ const routePoints = [
 const messages = [
   'Gửi bà chã iu... Một năm qua là hành trình hạnh phúc nhất của ông chã 💕',
   'Có những ngày nắng, có những ngày mưa, nhưng quan trọng là mình vẫn có nhau 🌸',
-  'Yêu xa vất vả thật đấy, nhưng nhìn thấy bà chã iu là mọi mệt mỏi tan biến hết ✨',
-  'Cảm ơn bà chã vì đã luôn bao dung, kiên nhẫn và thương ông chã thật nhiều 🫶',
-  'Ông chã hứa sẽ cố gắng hơn nữa để sớm được về ôm bà chã iu vào lòng 🌷',
-  'Mãi bên nhau như thế này bà chã nhé, yêu bà chã nhất trên đời! 💖'
+  'Yêu xa vất vả thật đấy, nhưng thấy bà chã iu cười hoi là mọi mệt mỏi tan biến hết ✨',
+  'Cảm ơn bà chã vì đã luôn bao dung, kiên nhẫn và thương ông chã thật nhiều',
+  'Ông chã hứa sẽ cố gắng hơn nữa để sớm được ôm bà chã iu vào lòng 🌷',
+  'Chờ ông xã nhé... yêu bà chã nhất trên đời! 💖'
 ];
 
 const photos = [
@@ -1013,7 +1036,7 @@ function start() {
 
   const music = document.getElementById('music');
   if (music) {
-    music.volume = 1;
+    music.volume = 0.2;
     safePlay(music);
   }
 
@@ -1055,7 +1078,7 @@ function pickRandom(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-function typeWriter(target, text, speed = 25, onDone = null) {
+function typeWriter(target, text, speed = 100, onDone = null) {
   target.innerHTML = '';
   let i = 0;
   const tick = () => {
@@ -1073,7 +1096,7 @@ function typeWriter(target, text, speed = 25, onDone = null) {
 
 function revealNarration(targetId, lines, options = {}) {
   const {
-    speed = 34,
+    speed = 100,
     gap = 260,
     clear = true,
     onDone = null
@@ -1179,7 +1202,7 @@ function nextMessageLine() {
     p.style.transform = 'translateY(0)';
     
     // Giả sử bạn dùng hàm typeWriter có sẵn của mình
-    typeWriter(p, item.text, 34, () => {
+    typeWriter(p, item.text, 100, () => {
       state.messageTyping = false;
       state.messageIndex++;
 
@@ -1374,8 +1397,7 @@ function answerGalleryQuestion(isCorrect) {
 
     feedback.innerHTML = `<span style="color:#166534">${pickRandom([
       'Giỏi quó dợ! Cụa kao của kao, tất cả là cụa kaoooo hehehe .. 💞',
-      'Đúng rồi nè, bà chã iu của ông chã là nhất luôn 💖',
-      'Chuẩn luôn đó nha, đáng yêu quá chừng 🫶'
+      'Đúng rồi nè, bà chã iu của ông chã là nhất luôn 💖'
     ])}</span>`;
 
     const heartBursts = [6, 7, 8, 7, 8, 9, 8];
